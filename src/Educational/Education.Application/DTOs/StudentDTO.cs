@@ -1,10 +1,9 @@
 ﻿using Education.Domain.Enums.StudentEnums;
 
-namespace Education.Domain.Entities
+namespace Education.Application.DTOs
 {
-    public class Student
+    public class StudentDTO
     {
-        public int Id { get; set; }
         public required string Firstname { get; set; }
         public required string Middlename { get; set; }
         public required string Lastname { get; set; }
@@ -14,7 +13,5 @@ namespace Education.Domain.Entities
         public bool Status { get; set; }
         public StudentCourse? Course { get; set; }
         public string? Comment { get; set; }
-        public int BranchId { get; set; }
-        public ICollection<StudentGroup>? StudentGroups { get; set; }
     }
 }
