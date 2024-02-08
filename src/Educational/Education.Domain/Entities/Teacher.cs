@@ -16,10 +16,10 @@ namespace Education.Domain.Entities
         public string? Address { get; set; }
         public required string Passport { get; set; }
         public required string Specialty { get; set; }
+        public int GroupId { get; set; }
 
         public ICollection<TeacherSubject> Subjects { get; set; }
-        public int GroupId { get; set; }
         [ForeignKey(nameof(GroupId))]
-        public Group Group { get; set; }
+        public Group? Group { get; set; }
     }
 }
