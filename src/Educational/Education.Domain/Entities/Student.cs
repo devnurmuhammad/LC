@@ -1,4 +1,5 @@
-﻿using Education.Domain.Enums.StudentEnums;
+﻿using Education.Domain.Enums;
+using Education.Domain.Enums.StudentEnums;
 
 namespace Education.Domain.Entities
 {
@@ -11,6 +12,7 @@ namespace Education.Domain.Entities
         public string? Address { get; set; }
         public required string Phone { get; set; }
         public required string Email { get; set; }
+        public GenderEnum Gender { get; set; }
         public bool Status { get; set; }
         public StudentCourse? Course { get; set; }
         public string? Comment { get; set; }
