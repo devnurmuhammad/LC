@@ -1,4 +1,8 @@
+using Education.Application.Interfaces;
+using Education.Application.Repository;
+using Education.Application.Services;
 using Education.Infrastructure.Data;
+using Education.Infrastructure.Repositories.Students;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +13,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IStudentRepository, StudentRepository>()
+                .AddScoped<IStudentService, StudentService>();
 
 builder.Services.AddDbContext<EducationDbContext>(options =>
 {

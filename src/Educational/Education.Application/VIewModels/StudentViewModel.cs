@@ -1,9 +1,10 @@
-﻿using Education.Domain.Enums;
+﻿using Education.Domain.Entities;
+using Education.Domain.Enums;
 using Education.Domain.Enums.StudentEnums;
 
-namespace Education.Domain.Entities
+namespace Education.Application.VIewModels
 {
-    public class Student
+    public class StudentViewModel
     {
         public int Id { get; set; }
         public required string Firstname { get; set; }
