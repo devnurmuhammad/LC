@@ -9,7 +9,7 @@ namespace Education.Application.Services
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
-
+        //private readonly EducationDbContext
         public StudentService(IStudentRepository studentRepository)
         {
             _studentRepository = studentRepository;
@@ -36,12 +36,18 @@ namespace Education.Application.Services
 
         public Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            //Student result = await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
+            //if (result is null)
+            //{
+                throw new Exception("not found");
+            //}
         }
 
-        public Task<IList<StudentViewModel>> GetAllAsync()
+        public async Task<IList<StudentViewModel>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            IList<StudentViewModel> students = await _studentRepository.GetAllAsync();
+            
+            return students;
         }
 
         public Task<long> GetCountAsync()
@@ -49,9 +55,11 @@ namespace Education.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<StudentViewModel> GetStudentById(int id)
+        public async Task<StudentViewModel> GetStudentById(int id)
         {
-            throw new NotImplementedException();
+            StudentViewModel student = await _studentRepository.GetStudentById(id);
+            
+            return student;
         }
 
         public Task<bool> UpdateAsync(int id, StudentDTO student)
