@@ -1,6 +1,5 @@
 ﻿using Education.Application.DTOs;
 using Education.Application.VIewModels;
-using Education.Domain.Entities;
 
 namespace Education.Application.Interfaces
 {
@@ -11,6 +10,6 @@ namespace Education.Application.Interfaces
         public Task<bool> UpdateAsync(int id, StudentDTO student);
         public Task<bool> DeleteAsync(int id);
         public Task<StudentViewModel> GetStudentById(int id);
-        public Task<long> GetCountAsync(); 
+        public Task<long> GetCountAsync();
     }
 }
