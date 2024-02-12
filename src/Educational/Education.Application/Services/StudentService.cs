@@ -3,13 +3,16 @@ using Education.Application.Interfaces;
 using Education.Application.Repository;
 using Education.Application.VIewModels;
 using Education.Domain.Entities;
+using Education.Domain.Enums;
+using Education.Domain.Enums.StudentEnums;
+
+#nullable disable
 
 namespace Education.Application.Services
 {
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
-        //private readonly EducationDbContext
         public StudentService(IStudentRepository studentRepository)
         {
             _studentRepository = studentRepository;
@@ -31,40 +34,100 @@ namespace Education.Application.Services
                 Comment = dto.Comment,
             };
             bool result = await _studentRepository.CreateAsync(student);
+
             return result;
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            //Student result = await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
-            //if (result is null)
-            //{
-                throw new Exception("not found");
-            //}
+            Student student = await _studentRepository.GetStudentById(id);
+            if (student == null)
+            {
+                throw new Exception("Not found");
+            }
+            await _studentRepository.DeleteAsync(id);
+
+            return true;
         }
 
         public async Task<IList<StudentViewModel>> GetAllAsync()
         {
-            IList<StudentViewModel> students = await _studentRepository.GetAllAsync();
-            
-            return students;
+            IList<Student> students = await _studentRepository.GetAllAsync();
+            IList<StudentViewModel> result = students.Select(x => new StudentViewModel
+            {
+                Id = x.Id,
+                Firstname = x.Firstname,
+                Middlename = x.Middlename,
+                Lastname = x.Lastname,
+                Address = x.Address,
+                Gender = Enum.GetName(typeof(GenderEnum), (int)x.Gender),
+                Phone = x.Phone,
+                Email = x.Email,
+                Status = x.Status ? "faol" : "nofaol",
+                Course = Enum.GetName(typeof(StudentCourse), (int)x.Course),
+                Comment = x.Comment,
+                BranchId = x.BranchId,
+                StudentGroups = x.StudentGroups,
+            }).ToList();
+
+            return result;
         }
 
-        public Task<long> GetCountAsync()
+        public async Task<long> GetCountAsync()
         {
-            throw new NotImplementedException();
+            long result = await _studentRepository.GetCountAsync();
+            return result;
         }
 
         public async Task<StudentViewModel> GetStudentById(int id)
         {
-            StudentViewModel student = await _studentRepository.GetStudentById(id);
-            
-            return student;
+            Student student = await _studentRepository.GetStudentById(id);
+            if (student == null)
+            {
+                throw new Exception("not found");
+            }
+            StudentViewModel result = new StudentViewModel()
+            {
+                Id = student.Id,
+                Firstname = student.Firstname,
+                Middlename = student.Middlename,
+                Lastname = student.Lastname,
+                Address = student.Address,
+                Gender = Enum.GetName(typeof(GenderEnum), (int)student.Gender),
+                Phone = student.Phone,
+                Email = student.Email,
+                Status = student.Status ? "faol" : "nofaol",
+                Course = Enum.GetName(typeof(StudentCourse), (int)student.Course),
+                Comment = student.Comment,
+                BranchId = student.BranchId,
+                StudentGroups = student.StudentGroups,
+            };
+
+            return result;
         }
 
-        public Task<bool> UpdateAsync(int id, StudentDTO student)
+        public async Task<bool> UpdateAsync(int id, StudentDTO studentDTO)
         {
-            throw new NotImplementedException();
+            Student student = await _studentRepository.GetStudentById(id);
+            if (student == null)
+            {
+                throw new Exception("Not found");
+            }
+            student.Firstname = studentDTO.Firstname;
+            student.Middlename = studentDTO.Middlename;
+            student.Lastname = studentDTO.Lastname;
+            student.Address = studentDTO.Address;
+            student.Gender = studentDTO.Gender;
+            student.Phone = studentDTO.Phone;
+            student.Email = studentDTO.Email;
+            student.Status = studentDTO.Status;
+            student.Course = studentDTO.Course;
+            student.Comment = studentDTO.Comment;
+            student.BranchId = studentDTO.BranchId;
+
+            bool result = await _studentRepository.UpdateAsync(student);
+
+            return result;
         }
     }
 }

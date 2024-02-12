@@ -1,9 +1,5 @@
-﻿using Education.Application.DTOs;
-using Education.Application.Repository;
-using Education.Application.VIewModels;
+﻿using Education.Application.Repository;
 using Education.Domain.Entities;
-using Education.Domain.Enums;
-using Education.Domain.Enums.StudentEnums;
 using Education.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +15,6 @@ namespace Education.Infrastructure.Repositories.Students
         {
             _context = context;
         }
-
         public async Task<bool> CreateAsync(Student student)
         {
             await _context.Students.AddAsync(student);
@@ -27,81 +22,39 @@ namespace Education.Infrastructure.Repositories.Students
 
             return reslut > 0;
         }
+        public async Task<IList<Student>> GetAllAsync()
+        {
+            IList<Student> students = await _context.Students.Include(x => x.StudentGroups)
+                .ToListAsync();
+            
+            return students;
+        }
+        public async Task<bool> UpdateAsync(Student student)
+        {
+            _context.Students.Update(student);
+            await _context.SaveChangesAsync();
 
+            return true;
+        }
         public async Task<bool> DeleteAsync(int id)
         {
             Student result = await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
-            if (result is null)
-            {
-                throw new Exception("not found");
-            }
             _context.Students.Remove(result);
             await _context.SaveChangesAsync();
 
             return true;
         }
-
-        public async Task<IList<StudentViewModel>> GetAllAsync()
+        public async Task<long> GetCountAsync()
         {
-            IList<Student> students = await _context.Students.Include(x => x.StudentGroups)
-                .ToListAsync();
-            IList<StudentViewModel> result = students.Select(x => new StudentViewModel
-            {
-                Id = x.Id,
-                Firstname = x.Firstname,
-                Middlename = x.Middlename,
-                Lastname = x.Lastname,
-                Address = x.Address,
-                Gender = Enum.GetName(typeof(GenderEnum), (int)x.Gender),
-                Phone = x.Phone,
-                Email = x.Email,
-                Status = x.Status ? "faol" : "nofaol",
-                Course = Enum.GetName(typeof(StudentCourse), (int)x.Course),
-                Comment = x.Comment,
-                BranchId = x.BranchId,
-                StudentGroups = x.StudentGroups,
-            }).ToList();
-
+            long result = await _context.Students.CountAsync();
             return result;
         }
-
-        public Task<long> GetCountAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<StudentViewModel> GetStudentById(int id)
+        public async Task<Student> GetStudentById(int id)
         {
             Student student = await _context.Students.Include(x => x.StudentGroups)
                 .FirstOrDefaultAsync(y => y.Id == id);
 
-            if (student == null)
-            {
-                throw new Exception("not found");
-            }
-            StudentViewModel result = new StudentViewModel()
-            {
-                Id = student.Id,
-                Firstname = student.Firstname,
-                Middlename = student.Middlename,
-                Lastname = student.Lastname,
-                Address = student.Address,
-                Gender = Enum.GetName(typeof(GenderEnum), (int)student.Gender),
-                Phone = student.Phone,
-                Email = student.Email,
-                Status = student.Status ? "faol" : "nofaol",
-                Course = Enum.GetName(typeof(StudentCourse), (int)student.Course),
-                Comment = student.Comment,
-                BranchId = student.BranchId,
-                StudentGroups = student.StudentGroups,
-            };
-
-            return result;
-        }
-
-        public Task<bool> UpdateAsync(int id, StudentDTO student)
-        {
-            throw new NotImplementedException();
+            return student;
         }
     }
 }

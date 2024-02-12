@@ -38,5 +38,29 @@ namespace Education.Web.Controllers
 
             return Ok(student);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateStudent(int id, StudentDTO studentDTO)
+        {
+            bool result = await _studentService.UpdateAsync(id, studentDTO);
+
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteStudent(int id)
+        {
+            bool result = await _studentService.DeleteAsync(id);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetStudentsCount()
+        {
+            long count = await _studentService.GetCountAsync();
+
+            return Ok(count);
+        }
     }
 }
