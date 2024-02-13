@@ -4,6 +4,7 @@ using Education.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Education.Infrastructure.Migrations
 {
     [DbContext(typeof(EducationDbContext))]
-    partial class EducationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240212161024_TeacherGender")]
+    partial class TeacherGender
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,6 +176,9 @@ namespace Education.Infrastructure.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Lastname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -198,30 +204,9 @@ namespace Education.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teachers");
-                });
-
-            modelBuilder.Entity("Education.Domain.Entities.TeacherGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("GroupId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeacherId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
                     b.HasIndex("GroupId");
 
-                    b.HasIndex("TeacherId");
-
-                    b.ToTable("TeacherGroup");
+                    b.ToTable("Teachers");
                 });
 
             modelBuilder.Entity("Education.Domain.Entities.TeacherSubject", b =>
@@ -266,7 +251,7 @@ namespace Education.Infrastructure.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("Education.Domain.Entities.TeacherGroup", b =>
+            modelBuilder.Entity("Education.Domain.Entities.Teacher", b =>
                 {
                     b.HasOne("Education.Domain.Entities.Group", "Group")
                         .WithMany("Teachers")
@@ -274,15 +259,7 @@ namespace Education.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Education.Domain.Entities.Teacher", "Teacher")
-                        .WithMany("Groups")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Group");
-
-                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("Education.Domain.Entities.TeacherSubject", b =>
@@ -323,8 +300,6 @@ namespace Education.Infrastructure.Migrations
 
             modelBuilder.Entity("Education.Domain.Entities.Teacher", b =>
                 {
-                    b.Navigation("Groups");
-
                     b.Navigation("Subjects");
                 });
 #pragma warning restore 612, 618

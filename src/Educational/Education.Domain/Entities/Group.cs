@@ -11,6 +11,6 @@ namespace Education.Domain.Entities
         public GroupStatus Status { get; set; }
         public int RoomId { get; set; }
         public ICollection<StudentGroup>? StudentGroups { get; set; }
-        public ICollection<Teacher>? Teachers { get; set; }
+        public ICollection<TeacherGroup>? Teachers { get; set; }
     }
 }

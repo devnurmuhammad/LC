@@ -40,7 +40,7 @@ namespace Education.Web.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateStudent(int id, StudentDTO studentDTO)
+        public async Task<IActionResult> UpdateStudent(int id, [FromForm] StudentDTO studentDTO)
         {
             bool result = await _studentService.UpdateAsync(id, studentDTO);
 

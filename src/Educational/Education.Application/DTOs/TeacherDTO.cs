@@ -1,11 +1,10 @@
 ﻿using Education.Domain.Enums;
 using Education.Domain.Enums.TeacherEnums;
 
-namespace Education.Domain.Entities
+namespace Education.Application.DTOs
 {
-    public class Teacher
+    public class TeacherDTO
     {
-        public int Id { get; set; }
         public required string Firstname { get; set; }
         public required string Middlename { get; set; }
         public required string Lastname { get; set; }
@@ -15,10 +14,8 @@ namespace Education.Domain.Entities
         public required string Email { get; set; }
         public string? Address { get; set; }
         public required string Passport { get; set; }
-        public required GenderEnum Gender { get; set; }
+        public GenderEnum Gender { get; set; }
         public required string Specialty { get; set; }
-
-        public ICollection<TeacherSubject> Subjects { get; set; }
-        public ICollection<TeacherGroup>? Groups { get; set; }
+        public int GroupId { get; set; }
     }
 }
