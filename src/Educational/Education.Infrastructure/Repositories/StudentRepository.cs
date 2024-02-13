@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
-namespace Education.Infrastructure.Repositories.Students
+namespace Education.Infrastructure.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
@@ -26,7 +26,7 @@ namespace Education.Infrastructure.Repositories.Students
         {
             IList<Student> students = await _context.Students.Include(x => x.StudentGroups)
                 .ToListAsync();
-            
+
             return students;
         }
         public async Task<bool> UpdateAsync(Student student)

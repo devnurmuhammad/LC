@@ -1,9 +1,11 @@
 using Education.Application.Interfaces;
+using Education.Application.Repositories;
 using Education.Application.Repository;
 using Education.Application.Services;
 using Education.Infrastructure.Data;
-using Education.Infrastructure.Repositories.Students;
+using Education.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,12 +18,17 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddScoped<IStudentRepository, StudentRepository>()
-    .AddScoped<IStudentService, StudentService>();
+    .AddScoped<IStudentService, StudentService>()
+    .AddScoped<ITeacherRepository, TeacherRepository>()
+    .AddScoped<ITeacherService, TeacherService>();
 
 builder.Services.AddDbContext<EducationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"));
 });
+
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 
