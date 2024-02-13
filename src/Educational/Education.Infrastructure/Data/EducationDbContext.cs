@@ -10,12 +10,12 @@ namespace Education.Infrastructure.Data
             Database.Migrate();
         }
 
-
         public DbSet<Group> Groups { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<StudentGroup> StudentGroups { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<TeacherSubject> TeachersSubjects { get; set; }
+        public DbSet<TeacherGroup> TeachersGroups { get; set; }
     }
 }

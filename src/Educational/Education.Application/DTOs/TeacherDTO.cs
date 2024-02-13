@@ -16,6 +16,5 @@ namespace Education.Application.DTOs
         public required string Passport { get; set; }
         public GenderEnum Gender { get; set; }
         public required string Specialty { get; set; }
-        public int GroupId { get; set; }
     }
 }
