@@ -17,7 +17,9 @@ namespace Education.Infrastructure.Dependencies
                     .AddScoped<ITeacherRepository, TeacherRepository>()
                     .AddScoped<ITeacherService, TeacherService>()
                     .AddScoped<ISubjectRepository, SubjectRepository>()
-                    .AddScoped<ISubjectService, SubjectService>();
+                    .AddScoped<ISubjectService, SubjectService>()
+                    .AddScoped<IGroupRepository, GroupRepository>()
+                    .AddScoped<IGroupService, GroupService>();
 
             return services;
         }
