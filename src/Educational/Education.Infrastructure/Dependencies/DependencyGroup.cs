@@ -15,7 +15,9 @@ namespace Education.Infrastructure.Dependencies
                     .AddScoped<IStudentRepository, StudentRepository>()
                     .AddScoped<IStudentService, StudentService>()
                     .AddScoped<ITeacherRepository, TeacherRepository>()
-                    .AddScoped<ITeacherService, TeacherService>();
+                    .AddScoped<ITeacherService, TeacherService>()
+                    .AddScoped<ISubjectRepository, SubjectRepository>()
+                    .AddScoped<ISubjectService, SubjectService>();
 
             return services;
         }
