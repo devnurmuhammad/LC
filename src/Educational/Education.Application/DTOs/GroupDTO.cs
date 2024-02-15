@@ -1,16 +1,13 @@
 ﻿using Education.Domain.Enums.GroupEnums;
 
-namespace Education.Domain.Entities
+namespace Education.Application.DTOs
 {
-    public class Group
+    public class GroupDTO
     {
-        public int Id { get; set; }
         public required string Number { get; set; }
         public DateTime StartedDate { get; set; }
         public DateTime? FinishedDate { get; set; }
         public GroupStatus Status { get; set; } = GroupStatus.Inactive;
         public int RoomId { get; set; }
-        public ICollection<StudentGroup>? StudentGroups { get; set; }
-        public ICollection<TeacherGroup>? Teachers { get; set; }
     }
 }

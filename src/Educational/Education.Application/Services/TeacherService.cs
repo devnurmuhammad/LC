@@ -43,9 +43,8 @@ namespace Education.Application.Services
         {
             Teacher teacher = await _repository.GetTeacherById(id);
             if (teacher == null)
-            {
                 throw new Exception("Not found");
-            }
+
             await _repository.DeleteAsync(id);
 
             return true;

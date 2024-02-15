@@ -1,16 +1,14 @@
 ﻿using Education.Domain.Enums.GroupEnums;
 
-namespace Education.Domain.Entities
+namespace Education.Application.VIewModels
 {
-    public class Group
+    public class GroupViewModel
     {
         public int Id { get; set; }
         public required string Number { get; set; }
         public DateTime StartedDate { get; set; }
         public DateTime? FinishedDate { get; set; }
-        public GroupStatus Status { get; set; } = GroupStatus.Inactive;
+        public required string Status { get; set; }
         public int RoomId { get; set; }
-        public ICollection<StudentGroup>? StudentGroups { get; set; }
-        public ICollection<TeacherGroup>? Teachers { get; set; }
     }
 }

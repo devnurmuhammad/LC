@@ -5,5 +5,6 @@
         Active,
         Inactive,
         Paused,
+        Finished,
     }
 }
