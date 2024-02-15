@@ -38,11 +38,11 @@ namespace Education.Infrastructure.Repositories
         }
         public async Task<bool> DeleteAsync(int id)
         {
-            Student result = await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
-            _context.Students.Remove(result);
-            await _context.SaveChangesAsync();
+            Student student = await _context.Students.FirstOrDefaultAsync(x => x.Id == id);
+            _context.Students.Remove(student);
+            int result = await _context.SaveChangesAsync();
 
-            return true;
+            return result > 0;
         }
         public async Task<long> GetCountAsync()
         {
