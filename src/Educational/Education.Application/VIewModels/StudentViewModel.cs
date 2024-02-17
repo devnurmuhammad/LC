@@ -1,6 +1,4 @@
 ﻿using Education.Domain.Entities;
-using Education.Domain.Enums;
-using Education.Domain.Enums.StudentEnums;
 
 namespace Education.Application.VIewModels
 {
@@ -17,7 +15,7 @@ namespace Education.Application.VIewModels
         public required string Status { get; set; }
         public string? Course { get; set; }
         public string? Comment { get; set; }
-        public int BranchId { get; set; }
+        //public int BranchId { get; set; }
         public ICollection<StudentGroup>? StudentGroups { get; set; }
     }
 }
