@@ -11,6 +11,7 @@ namespace Organizational.Domain.Entities
         public required string Lastname { get; set; }
         public EmployeePosition Position { get; set; }
         public DateTime EmploymentDate { get; set; }
+        public bool IsActive { get; set; } = true;
         public string? Salary { get; set; }
         public required string Phone { get; set; }
         public required string Email { get; set; }
