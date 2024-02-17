@@ -1,17 +1,16 @@
-﻿using Organizational.Domain.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Organizational.Domain.Entities;
 
-namespace Organizational.Domain.Entities
+namespace Organizational.Application.ViewModels
 {
-    public class Employee
+    public class EmployeeViewModel
     {
         public int Id { get; set; }
         public required string Firstname { get; set; }
         public string? Middlename { get; set; }
         public required string Lastname { get; set; }
-        public EmployeePosition Position { get; set; }
+        public required string Position { get; set; }
+        public bool IsActive { get; set; }
         public DateTime EmploymentDate { get; set; }
-        public bool IsActive { get; set; } = true;
         public string? Salary { get; set; }
         public required string Phone { get; set; }
         public required string Email { get; set; }
@@ -22,7 +21,5 @@ namespace Organizational.Domain.Entities
 
         public ICollection<Contract>? Contracts { get; set; }
         public ICollection<EmployeeOutcome>? EmployeeOutcomes { get; set; }
-        [ForeignKey(nameof(BranchId))]
-        public Branch? Branch { get; set; }
     }
 }

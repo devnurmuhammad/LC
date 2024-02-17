@@ -1,6 +1,4 @@
-﻿using Education.Domain.Enums.GroupEnums;
-
-namespace Education.Application.VIewModels
+﻿namespace Education.Application.VIewModels
 {
     public class GroupViewModel
     {

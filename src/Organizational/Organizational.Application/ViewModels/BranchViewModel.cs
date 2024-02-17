@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Organizational.Domain.Entities;
 
-namespace Organizational.Domain.Entities
+namespace Organizational.Application.ViewModels
 {
-    public class Branch
+    public class BranchViewModel
     {
         public int Id { get; set; }
         public required string Name { get; set; }
@@ -13,7 +13,5 @@ namespace Organizational.Domain.Entities
         public ICollection<Income>? Incomes { get; set; }
         public ICollection<Outcome>? Outcomes { get; set; }
         public ICollection<Employee>? Employees { get; set; }
-        [ForeignKey(nameof(CompanyId))]
-        public Company Company { get; set; }
     }
 }
