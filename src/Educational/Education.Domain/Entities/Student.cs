@@ -16,7 +16,7 @@ namespace Education.Domain.Entities
         public bool Status { get; set; }
         public StudentCourse? Course { get; set; }
         public string? Comment { get; set; }
-        public int BranchId { get; set; }
+        //public int BranchId { get; set; }
         public ICollection<StudentGroup>? StudentGroups { get; set; }
     }
 }
