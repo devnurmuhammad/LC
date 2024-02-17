@@ -66,7 +66,7 @@ namespace Education.Application.Services
                 Status = x.Status ? "faol" : "nofaol",
                 Course = Enum.GetName(typeof(StudentCourse), (int)x.Course),
                 Comment = x.Comment,
-                BranchId = x.BranchId,
+                //BranchId = x.BranchId,
                 StudentGroups = x.StudentGroups,
             }).ToList();
 
@@ -99,7 +99,7 @@ namespace Education.Application.Services
                 Status = student.Status ? "faol" : "nofaol",
                 Course = Enum.GetName(typeof(StudentCourse), (int)student.Course),
                 Comment = student.Comment,
-                BranchId = student.BranchId,
+                //BranchId = student.BranchId,
                 StudentGroups = student.StudentGroups,
             };
 
@@ -123,7 +123,7 @@ namespace Education.Application.Services
             student.Status = studentDTO.Status;
             student.Course = studentDTO.Course;
             student.Comment = studentDTO.Comment;
-            student.BranchId = studentDTO.BranchId;
+            //student.BranchId = studentDTO.BranchId;
 
             bool result = await _studentRepository.UpdateAsync(student);
 

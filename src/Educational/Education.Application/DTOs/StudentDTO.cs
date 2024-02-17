@@ -14,7 +14,7 @@ namespace Education.Application.DTOs
         public GenderEnum Gender { get; set; }
         public bool Status { get; set; }
         public StudentCourse? Course { get; set; }
-        public int BranchId { get; set; }
+        //public int BranchId { get; set; }
         public string? Comment { get; set; }
     }
 }
