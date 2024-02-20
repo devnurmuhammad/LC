@@ -35,14 +35,18 @@ namespace Organizational.Infrastructure.Repositories
 
         public async Task<IList<Employee>> GetAllEmployee()
         {
-            IList<Employee> employees = await _context.Employees.ToListAsync();
+            IList<Employee> employees = await _context.Employees.Include(e => e.EmployeeOutcomes)
+                .Include(x => x.Contracts)
+                .ToListAsync();
 
             return employees;
         }
 
         public async Task<Employee> GetEmployeeById(int id)
         {
-            Employee? employee = await _context.Employees.FirstOrDefaultAsync(_ => _.Id == id);
+            Employee? employee = await _context.Employees.Include(e => e.EmployeeOutcomes)
+                .Include(x => x.Contracts)
+                .FirstOrDefaultAsync(_ => _.Id == id);
             if (employee is not null)
             {
                 return employee;
