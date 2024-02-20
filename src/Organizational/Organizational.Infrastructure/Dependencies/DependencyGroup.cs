@@ -11,7 +11,9 @@ namespace Organizational.Infrastructure.Dependencies
         public static IServiceCollection AddDependencyGroup(this IServiceCollection services)
         {
             services.AddScoped<ICompanyRepository, CompanyRepository>()
-                    .AddScoped<ICompanyService, CompanyService>();
+                    .AddScoped<ICompanyService, CompanyService>()
+                    .AddScoped<IEmployeeRepository, EmployeeRepository>()
+                    .AddScoped<IEmployeeService, EmployeeService>();
 
             return services;
         }

@@ -22,7 +22,7 @@ namespace Organizational.Application.Services
         public CompanyViewModel GetCompany()
         {
             Company company = _companyRepository.GetCompany();
-            CompanyViewModel result =  new CompanyViewModel()
+            CompanyViewModel result = new CompanyViewModel()
             {
                 Name = company.Name,
                 Address = company.Address,
@@ -37,9 +37,19 @@ namespace Organizational.Application.Services
             return result;
         }
 
-        public Task<bool> UpdateCompany(CompanyDTO company)
+        public async Task<bool> UpdateCompany(CompanyDTO dto)
         {
-            throw new NotImplementedException();
+            Company company = _companyRepository.GetCompany();
+            company.Name = dto.Name;
+            company.Address = dto.Address;
+            company.Email = dto.Email;
+            company.Phone = dto.Phone;
+            company.Website = dto.Website;
+            company.CEO = dto.CEO;
+            
+            bool result = await _companyRepository.UpdateCompany(company);
+
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Organizational.Application.DTOs;
 using Organizational.Application.Interfaces.Services;
 using Organizational.Application.ViewModels;
 
@@ -19,6 +20,13 @@ namespace Organizational.Web.Controllers
         {
             CompanyViewModel company = _companyService.GetCompany();
 
+            return Ok(company);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateCompany([FromForm] CompanyDTO company)
+        {
+            await _companyService.UpdateCompany(company);
             return Ok(company);
         }
     }
