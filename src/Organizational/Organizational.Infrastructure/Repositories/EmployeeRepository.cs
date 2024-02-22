@@ -24,13 +24,10 @@ namespace Organizational.Infrastructure.Repositories
         public async Task<bool> DeleteEmployee(int id)
         {
             Employee? employee = await _context.Employees.FirstOrDefaultAsync(x => x.Id == id);
-            if (employee is not null)
-            {
-                _context.Employees.Remove(employee);
-                int result = await _context.SaveChangesAsync();
-                return result > 0;
-            }
-            return false;
+
+            _context.Employees.Remove(employee);
+            int result = await _context.SaveChangesAsync();
+            return result > 0;
         }
 
         public async Task<IList<Employee>> GetAllEmployee()
@@ -47,12 +44,8 @@ namespace Organizational.Infrastructure.Repositories
             Employee? employee = await _context.Employees.Include(e => e.EmployeeOutcomes)
                 .Include(x => x.Contracts)
                 .FirstOrDefaultAsync(_ => _.Id == id);
-            if (employee is not null)
-            {
-                return employee;
-            }
 
-            throw new Exception("not found");
+            return employee;
         }
 
         public async Task<int> GetEmployeeCount()
@@ -65,14 +58,10 @@ namespace Organizational.Infrastructure.Repositories
         public async Task<bool> UpdateEmployee(Employee employee)
         {
             Employee? result = await _context.Employees.FirstOrDefaultAsync(x => x.Id == employee.Id);
-            if (result is not null)
-            {
-                _context.Update(result);
-                int res = await _context.SaveChangesAsync();
+            _context.Employees.Update(result);
+            int res = await _context.SaveChangesAsync();
 
-                return res > 0;
-            }
-            return false;
+            return res > 0;
         }
     }
 }
