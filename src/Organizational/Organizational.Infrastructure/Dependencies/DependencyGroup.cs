@@ -15,7 +15,10 @@ namespace Organizational.Infrastructure.Dependencies
                     .AddScoped<IEmployeeRepository, EmployeeRepository>()
                     .AddScoped<IEmployeeService, EmployeeService>()
                     .AddScoped<IBranchRepository, BranchRepository>()
-                    .AddScoped<IBranchService, BranchService>();
+                    .AddScoped<IBranchService, BranchService>()
+                    .AddScoped<IContractRepository, ContractRepository>()
+                    .AddScoped<IContractService, ContractService>()
+                    ;
 
             return services;
         }
