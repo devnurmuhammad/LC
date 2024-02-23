@@ -14,7 +14,7 @@ namespace Organizational.Domain.Entities
         public required int EmployeeId { get; set; }
         //public required int StudentId { get; set; }
         [ForeignKey(nameof(EmployeeId))]
-        public required Employee Employee { get; set; }
+        public Employee Employee { get; set; }
         public Income Income { get; set; }
     }
 }

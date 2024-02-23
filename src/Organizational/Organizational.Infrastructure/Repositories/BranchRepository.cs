@@ -35,7 +35,8 @@ namespace Organizational.Infrastructure.Repositories
 
         public async Task<IList<Branch>> GetAllBranches()
         {
-            IList<Branch> branches = await _context.Branches.Include(x => x.Incomes)
+            IList<Branch> branches = await _context.Branches
+                .Include(x => x.Incomes)
                 .Include(y => y.Outcomes)
                 .Include(z => z.Employees)
                 .ToListAsync();
@@ -72,10 +73,9 @@ namespace Organizational.Infrastructure.Repositories
 
         public async Task<bool> UpdateBranch(Branch branch)
         {
-            Branch? branch1 = await _context.Branches.FirstOrDefaultAsync(x => x.Id == branch.Id);
-            if (branch1 is null)
-                throw new Exception($"Branch {branch.Id} not found");
-
+            //Branch? branch1 = await _context.Branches.FirstOrDefaultAsync(x => x.Id == branch.Id);
+            //if (branch1 is null)
+            //    throw new Exception($"Branch {branch.Id} not found");
             _context.Branches.Update(branch);
             int result = await _context.SaveChangesAsync();
 
